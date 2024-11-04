@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad de Práctica</title>
+    <style>
+        /* Fondo de la página con imagen de Inglaterra */
+        body {
+            background-image: url(https://images.pexels.com/photos/28728726/pexels-photo-28728726/free-photo-of-iconic-view-of-big-ben-and-houses-of-parliament-in-london.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2); /* Usa una imagen representativa de Inglaterra */
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: black; /* Color de texto en negro */
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.95); /* Fondo blanco semitransparente */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            width: 100%;
+            color: black; /* Asegura que el texto en el contenedor sea negro */
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .question {
+            margin: 10px 0;
+        }
+        .result {
+            font-weight: bold;
+            margin-top: 20px;
+            text-align: center;
+        }
+        /* Estilos para respuestas correctas e incorrectas */
+        .correct {
+            color: green;
+        }
+        .incorrect {
+            color: red;
+        }
+        /* Botón principal */
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        /* Input */
+        input[type="text"] {
+            padding: 5px;
+            width: 50px;
+            text-align: center;
+            margin-right: 5px;
+        }
+        /* Enlace para rehacer el ejercicio */
+        .reset-link {
+            display: block;
+            text-align: center;
+            color: blue;
+            cursor: pointer;
+            text-decoration: underline;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Actividad de Práctica</h1>
+        
+        <!-- Formulario con preguntas -->
+        <form id="quizForm">
+            <div class="question">1. I eat <input type="text" id="q1"> banana every morning.</div>
+            <div class="question">2. She has <input type="text" id="q2"> small dog.</div>
+            <div class="question">3. He likes <input type="text" id="q3"> cake on his birthday.</div>
+            <div class="question">4. They see <input type="text" id="q4"> cat in the street.</div>
+            <div class="question">5. We play <input type="text" id="q5"> game after school.</div>
+            <div class="question">6. <input type="text" id="q6"> sun shines in the sky.</div>
+            <div class="question">7. She reads <input type="text" id="q7"> book before bed.</div>
+            <div class="question">8. Can you give me <input type="text" id="q8"> pencil, please?</div>
+            <div class="question">9. I drink <input type="text" id="q9"> orange juice for breakfast.</div>
+            <div class="question">10. He watches <input type="text" id="q10"> movie on Friday night.</div>
+            <div class="question">11. There is <input type="text" id="q11"> apple on the table.</div>
+            <div class="question">12. We see <input type="text" id="q12"> bird in the tree.</div>
+            
+            <button type="button" onclick="checkAnswers()">Enviar Respuestas</button>
+            <span class="reset-link" onclick="resetQuiz()">Rehacer el ejercicio</span>
+        </form>
+        
+        <!-- Lugar para mostrar los resultados -->
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        // Respuestas correctas
+        const correctAnswers = ["a", "a", "the", "a", "a", "the", "a", "a", "an", "a", "an", "a"];
+        
+        // Función para revisar las respuestas del usuario
+        function checkAnswers() {
+            let score = 0;
+            const totalQuestions = correctAnswers.length;
+            const form = document.getElementById('quizForm');
+            
+            for (let i = 0; i < totalQuestions; i++) {
+                const userAnswer = form["q" + (i + 1)].value.trim().toLowerCase();
+                const question = form["q" + (i + 1)];
+                
+                // Evaluar si la respuesta es correcta o incorrecta
+                if (userAnswer === correctAnswers[i]) {
+                    question.style.color = "green";
+                    question.classList.add("correct");
+                    score++;
+                } else {
+                    question.style.color = "red";
+                    question.classList.add("incorrect");
+                }
+            }
+            
+            // Mostrar el resultado final
+            const resultDiv = document.getElementById("result");
+            resultDiv.innerHTML = `Tu puntuación es: ${score} de ${totalQuestions}.`;
+            resultDiv.style.display = "block";
+        }
+
+        // Función para reiniciar el ejercicio
+        function resetQuiz() {
+            const form = document.getElementById('quizForm');
+            
+            // Limpiar todos los campos de entrada y quitar estilos
+            for (let i = 1; i <= correctAnswers.length; i++) {
+                const question = form["q" + i];
+                question.value = "";  // Limpiar el campo
+                question.style.color = "black";  // Resetear el color
+                question.classList.remove("correct", "incorrect");
+            }
+            
+            // Ocultar el mensaje de resultado
+            document.getElementById("result").innerHTML = "";
+        }
+    </script>
+</body>
+</html>
